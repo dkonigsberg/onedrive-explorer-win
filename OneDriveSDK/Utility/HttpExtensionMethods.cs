@@ -27,6 +27,9 @@ namespace OneDrive
 
         internal static string CleanContentType(this string contentTypeHeaderValue)
         {
+            if (contentTypeHeaderValue == null)
+                return null;
+
             if (!contentTypeHeaderValue.Contains(";"))
                 return contentTypeHeaderValue;
 
