@@ -127,6 +127,7 @@ namespace OneDrive
             }
             
             request.Headers["Authorization"] = Authentication.AuthorizationHeaderValue;
+            request.Headers["Cache-Control"] = "no-cache";
             request.Accept = ApiConstants.ContentTypeJson;
         }
 
