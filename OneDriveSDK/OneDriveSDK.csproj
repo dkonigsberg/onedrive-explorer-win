@@ -43,7 +43,7 @@
     <Compile Include="CommandOptions\RetrievalOptions.cs" />
     <Compile Include="CommandOptions\StreamDownloadOptions.cs" />
     <Compile Include="CommandOptions\ThumbnailRetrievalOptions.cs" />
-    <Compile Include="CommandOptions\ViewChangesOptions.cs" />
+    <Compile Include="CommandOptions\ViewDeltaOptions.cs" />
     <Compile Include="DataType\ODAsyncTaskStatus.cs" />
     <Compile Include="DataType\ODDataModel.cs" />
     <Compile Include="DataType\ODError.cs" />
@@ -76,7 +76,7 @@
     <Compile Include="DataType\ODItem.cs" />
     <Compile Include="DataType\ODThumbnail.cs" />
     <Compile Include="DataType\ODThumbnailSet.cs" />
-    <Compile Include="DataType\ODViewChangesResult.cs" />
+    <Compile Include="DataType\ODViewDeltaResult.cs" />
     <Compile Include="Facets\HashesFacet.cs" />
     <Compile Include="Facets\LocationFacet.cs" />
     <Compile Include="Facets\PhotoFacet.cs" />

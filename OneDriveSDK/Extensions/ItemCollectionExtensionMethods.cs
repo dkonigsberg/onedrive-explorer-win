@@ -35,7 +35,7 @@ namespace OneDrive
             }
         }
 
-        public async static Task<ODViewChangesResult> GetNextResponseCollection(ODViewChangesResult previousCollection, ODConnection connection)
+        public async static Task<ODViewDeltaResult> GetNextResponseCollection(this ODViewDeltaResult previousCollection, ODConnection connection)
         {
             if (null == connection)
                 throw new ArgumentNullException("connection");
@@ -44,7 +44,7 @@ namespace OneDrive
 
             if (previousCollection.MoreItemsAvailable())
             {
-                return await connection.DataModelForRequest<ODViewChangesResult>(new Uri(previousCollection.NextLink), ApiConstants.HttpGet);
+                return await connection.DataModelForRequest<ODViewDeltaResult>(new Uri(previousCollection.NextLink), ApiConstants.HttpGet);
             }
             else
             {
@@ -52,7 +52,7 @@ namespace OneDrive
             }
         }
 
-        public async static Task<ODItemCollection> GetNextResponseCollection(ODItemCollection previousCollection, ODConnection connection)
+        public async static Task<ODItemCollection> GetNextResponseCollection(this ODItemCollection previousCollection, ODConnection connection)
         {
             if (null == connection)
                 throw new ArgumentNullException("connection");

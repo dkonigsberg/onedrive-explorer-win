@@ -2,14 +2,14 @@
 
 namespace OneDrive
 {
-    public class ViewChangesOptions : RequestOptions
+    public class ViewDeltaOptions : RequestOptions
     {
-        internal const string ViewChangesTokenKey = "token";
+        internal const string ViewDeltaTokenKey = "token";
         
         public string StartingToken 
         {
-            get { return ValueForQueryString(ViewChangesTokenKey); }
-            set { SetValueForQueryString(ViewChangesTokenKey, value); }
+            get { return ValueForQueryString(ViewDeltaTokenKey); }
+            set { SetValueForQueryString(ViewDeltaTokenKey, value); }
         }
 
         public int? PageSize 
@@ -27,9 +27,9 @@ namespace OneDrive
             set { SetValueForQueryString(ApiConstants.SelectQueryParameterKey, value); }
         }
 
-        public static ViewChangesOptions Default
+        public static ViewDeltaOptions Default
         {
-            get { return new ViewChangesOptions(); }
+            get { return new ViewDeltaOptions(); }
         }
     }
 }

@@ -385,12 +385,12 @@ namespace OneDrive
         }
 
         /// <summary>
-        /// Returns change information for items at and below the specified item-id.
+        /// Returns delta information for items at and below the specified item-id.
         /// </summary>
         /// <param name="rootItemReference"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        public async Task<ODViewChangesResult> ViewChangesAsync(ODItemReference rootItemReference, ViewChangesOptions options)
+        public async Task<ODViewDeltaResult> ViewDeltaAsync(ODItemReference rootItemReference, ViewDeltaOptions options)
         {
             if (!rootItemReference.IsValid())
                 throw new ArgumentException("rootItemReference was invalid. Requires either an ID or Path");
@@ -400,12 +400,55 @@ namespace OneDrive
             var queryParams = new QueryStringBuilder();
             options.ModifyQueryString(queryParams);
 
-            Uri serviceUri = UriForItemReference(rootItemReference, ApiConstants.ViewChangesServiceAction, queryParams);
+            Uri serviceUri = UriForItemReference(rootItemReference, ApiConstants.ViewDeltaServiceAction, queryParams);
             var request = await CreateHttpRequestAsync(serviceUri, ApiConstants.HttpGet);
 
-            return await DataModelForRequest<ODViewChangesResult>(request);
-        }
+            ODViewDeltaResult result = null;
+            try
+            {
+                result = await DataModelForRequest<ODViewDeltaResult>(request);
+            }
+            catch (ODServerException ex)
+            {
+                if(ex.HttpStatusCode == 410)
+                {
+                    result = new ODViewDeltaResult();
+                    result.Collection = new ODItem[0];
 
+                    string location = null;
+                    if (!ex.HttpHeaders.TryGetValue("Location", out location))
+                    {
+                        throw;
+                    }
+                    result.NextLink = location;
+
+                    if (ex.ServiceError != null && ex.ServiceError.Error != null && ex.ServiceError.Error.Code != null)
+                    {
+                        if (ex.ServiceError.Error.Code.Equals("resyncRequired", StringComparison.OrdinalIgnoreCase))
+                        {
+                            result.ResyncBehavior = ResyncLogic.ResyncChangesApplyDifferences;
+                        }
+                        else if (ex.ServiceError.Error.Code.Equals("uploadDifferences", StringComparison.OrdinalIgnoreCase))
+                        {
+                            result.ResyncBehavior = ResyncLogic.ResyncChangesUploadDifferences;
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return result;
+        }
 
         /// <summary>
         /// Search for items matching a given search query

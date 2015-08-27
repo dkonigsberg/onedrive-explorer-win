@@ -423,7 +423,7 @@ namespace NewApiBrowser
         {
             try
             {
-                var result = await Connection.ViewChangesAsync(this.CurrentFolder.ItemReference(), ViewChangesOptions.Default);
+                var result = await Connection.ViewDeltaAsync(this.CurrentFolder.ItemReference(), ViewDeltaOptions.Default);
                 FormSyncResults results = new FormSyncResults(Connection, result);
                 results.Show();
             }

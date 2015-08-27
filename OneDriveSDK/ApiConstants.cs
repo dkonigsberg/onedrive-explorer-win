@@ -18,7 +18,7 @@ namespace OneDrive
         public const string RootFolderItemId = "root";
 
         // OneDrive service actions
-        public const string ViewChangesServiceAction = "view.changes";
+        public const string ViewDeltaServiceAction = "view.delta";
         public const string SearchServiceAction = "view.search";
         public const string CopyItemAction = "action.copy";
         public const string CreateLinkAction = "action.createLink";
