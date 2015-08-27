@@ -23,6 +23,7 @@ namespace OneDrive
                     {
                         HttpStatusCode = (int)response.StatusCode,
                         HttpStatusMessage = response.StatusDescription,
+                        HttpHeaders = response.Headers,
                         ServiceError = errorObj
                     };
                 }
@@ -32,6 +33,7 @@ namespace OneDrive
                     {
                         HttpStatusCode = (int)response.StatusCode,
                         HttpStatusMessage = response.StatusDescription,
+                        HttpHeaders = response.Headers,
                         ServiceError = errorObj
                     };
                 }

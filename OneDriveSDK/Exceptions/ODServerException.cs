@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace OneDrive
 {
@@ -11,6 +12,7 @@ namespace OneDrive
 
         public int HttpStatusCode { get; internal set; }
         public string HttpStatusMessage { get; internal set; }
+        public IReadOnlyDictionary<string, string> HttpHeaders { get; internal set; }
         public ODError ServiceError { get; internal set; }
         public HttpResponseType ResponseType { get { return HttpStatusCode.ToHttpResponseType(); } }
     }
